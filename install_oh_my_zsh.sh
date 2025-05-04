@@ -27,13 +27,8 @@ else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# Set Zsh as the default shell if requested
-if [[ "$MAKE_DEFAULT_SHELL" == "yes" ]]; then
-    log "Setting Zsh as the default shell..."
-    chsh -s $(which zsh)
-else
-    log "Zsh installation complete. Skipping setting it as the default shell."
-fi
+log "Setting Zsh as the default shell..."
+chsh -s $(which zsh)
 
 # Install Zsh autosuggestions
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
@@ -99,7 +94,7 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh/custom/themes/powerlevel10k" ]; then
     log "Installing Zsh powerlevel10k..."
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
-    sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel10k/powerlevel10k"/' ~/.zshrc
+    sed -i 's/robbyrussell/powerlevel10k\/powerlevel10k/' ~/.zshrc
 else
     log "Zsh powerlevel10k already installed. Skipping."
 fi
@@ -108,5 +103,5 @@ fi
 # Apply changes
 log "Applying changes..."
 zsh -c "source ~/.zshrc"
-
+pipx ensurepath
 log "Oh My Zsh installation completed with autosuggestions and syntax highlighting enabled!"
