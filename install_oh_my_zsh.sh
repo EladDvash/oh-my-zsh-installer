@@ -27,8 +27,6 @@ else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-log "Setting Zsh as the default shell..."
-chsh -s $(which zsh)
 
 # Install Zsh autosuggestions
 if [ ! -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
@@ -99,6 +97,9 @@ else
     log "Zsh powerlevel10k already installed. Skipping."
 fi
 
+echo "setopt NO_NOMATCH" >> ~/.zshrc 
+echo "ulimit -S -n 65535" >> ~/.zshrc 
+echo "zstyle ':completion:*:ssh:*' hosts off" >> ~/.zshrc 
  
 # Apply changes
 log "Applying changes..."
