@@ -100,9 +100,12 @@ fi
 echo "setopt NO_NOMATCH" >> ~/.zshrc 
 echo "ulimit -S -n 65535" >> ~/.zshrc 
 echo "zstyle ':completion:*:ssh:*' hosts off" >> ~/.zshrc 
- 
+echo -e "123456\n" | chsh -s /bin/zsh
+echo "set-option -g default-shell /bin/zsh" >> .tmux.conf
+
 # Apply changes
 log "Applying changes..."
 zsh -c "source ~/.zshrc"
-pipx ensurepath
 log "Oh My Zsh installation completed with autosuggestions and syntax highlighting enabled!"
+pipx ensurepath
+pipx install poetry
